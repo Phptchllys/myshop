@@ -1,6 +1,9 @@
 import './style.css'
 import { getProducts } from './products.js'
 import { productCard } from './ui.js'
+import { renderHeader } from './header.js'
+
+renderHeader()
 
 const grid = document.querySelector('#product-grid')
 const searchInput = document.querySelector('#search')
