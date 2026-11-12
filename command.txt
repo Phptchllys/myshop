@@ -1,6 +1,85 @@
-npm run build #test
-firebase deploy --only hosting #update
+1. ใช้ทุกวัน (พัฒนา)
+คำสั่ง	ทำอะไร	ใช้เมื่อไหร่
+npm run dev	เปิดเซิร์ฟเวอร์พัฒนา ที่ http://localhost:5173 แก้โค้ดแล้วหน้าเว็บรีเฟรชเอง	เริ่มทำงานทุกครั้ง
+Ctrl + C	หยุดเซิร์ฟเวอร์ที่รันอยู่	จะปิดเครื่อง หรือต้องใช้ Terminal ทำอย่างอื่น
+npm install	ติดตั้งแพ็กเกจตาม package.json	โคลนโปรเจกต์มาใหม่ หรือย้ายเครื่อง (ครั้งเดียวต่อเครื่อง)
 
+ถ้า Terminal ว่างแล้วอยากรันอย่างอื่น แต่ npm run dev ยังทำงานอยู่ ให้เปิด Terminal ใหม่ด้วยปุ่ม + แทนการหยุดมัน
+
+2. ก่อนเผยแพร่ (เส้นทางเดียวกับที่ใช้)
+ลำดับ	คำสั่ง	ทำอะไร
+1	npm run build	รวมโค้ดเป็นโฟลเดอร์ dist และตรวจทุกไฟล์ (เจอ error ที่ dev ไม่เห็น เช่นเคส ordersPage.js)
+2	npm run preview	เปิดเว็บจาก dist ที่ http://localhost:4173 เพื่อทดสอบของที่จะขึ้นจริง
+3	firebase deploy --only hosting	เผยแพร่ขึ้นอินเทอร์เน็ต
+
+ลำดับสำคัญ: build ก่อน deploy เสมอ ถ้าแก้โค้ดแล้ว deploy โดยไม่ build เว็บจริงจะเป็นเวอร์ชันเก่า
+
+3. Firebase (ตั้งค่าครั้งแรก ทำครั้งเดียว)
+คำสั่ง	ทำอะไร
+npm install firebase	ติดตั้งไลบรารี Firebase ในโปรเจกต์ (ทำแล้วตั้งแต่เฟส 2)
+npm install -g firebase-tools	ติดตั้งเครื่องมือ firebase ทั้งเครื่อง (ใช้ได้ทุกโฟลเดอร์)
+firebase login	ล็อกอินบัญชี Google (เปิดเบราว์เซอร์ให้กดอนุญาต)
+firebase init hosting	ตั้งค่า Hosting ตอบ: public directory = dist, single-page app = No
+
+คำสั่ง Firebase ที่ใช้เป็นครั้งคราว
+
+คำสั่ง	ทำอะไร
+firebase projects:list	ดูรายชื่อโปรเจกต์ และ Project ID ของคุณ
+firebase login --reauth	ล็อกอินใหม่ ถ้า deploy แล้วขึ้น error เรื่อง credentials หมดอายุ
+firebase hosting:channel:deploy ทดสอบ	เผยแพร่เป็นลิงก์ทดลองชั่วคราว ยังไม่แตะเว็บจริง (ปลอดภัยสำหรับลองของใหม่)
+
+ถ้า PowerShell ไม่รู้จักคำสั่ง firebase ให้ปิด-เปิด Terminal ใหม่ หรือใช้ npx firebase-tools <คำสั่ง> แทน เช่น npx firebase-tools deploy --only hosting
+
+4. Git (บันทึกความคืบหน้า)
+คำสั่ง	ทำอะไร
+git init	เริ่มเก็บประวัติในโฟลเดอร์ (ครั้งเดียว)
+git status	ดูว่าไฟล์ไหนเปลี่ยนไป
+git add .	เลือกทุกไฟล์ที่เปลี่ยนเข้าคิวบันทึก
+git commit -m "ข้อความอธิบาย"	บันทึกเป็น "จุดเซฟ"
+git log --oneline	ดูรายการจุดเซฟที่ผ่านมา
+git diff	ดูว่าแก้อะไรไปบ้าง ตั้งแต่จุดเซฟล่าสุด
+git restore src/ชื่อไฟล์.js	ทิ้งการแก้ไขทั้งหมดของไฟล์นั้น กลับไปเป็นตามจุดเซฟล่าสุด
+
+ระวัง git restore: ย้อนกลับแล้ว เอาคืนไม่ได้ ใช้เมื่อมั่นใจว่าอยากทิ้งงานที่แก้ค้างไว้ ถ้าไม่แน่ใจ ใช้ git diff ดูก่อน
+
+ถ้า git commit ขึ้นว่า “Please tell me who you are” ให้ตั้งชื่อกับอีเมลครั้งเดียว
+
+bash
+git config --global user.name "ชื่อของคุณ"
+git config --global user.email "อีเมลของคุณ"
+5. เช็กเครื่องและแก้ปัญหา
+คำสั่ง	ทำอะไร
+node -v และ npm -v	เช็กเวอร์ชันที่ติดตั้ง ถ้าขึ้นเลขแปลว่าพร้อมใช้
+cd myshop	เข้าโฟลเดอร์โปรเจกต์ (ถ้า Terminal เปิดอยู่ผิดที่)
+cd ..	ถอยกลับหนึ่งโฟลเดอร์
+dir (PowerShell)	ดูไฟล์ในโฟลเดอร์ปัจจุบัน
+npm run dev -- --port 3000	เปิดเซิร์ฟเวอร์ที่พอร์ตอื่น ถ้า 5173 ถูกใช้อยู่
+เส้นทางที่ใช้บ่อยที่สุด
+
+เริ่มทำงานแต่ละวัน
+
+bash
+cd myshop
+npm run dev
+
+พอใจกับสิ่งที่แก้ อยากบันทึกและเผยแพร่
+
+bash
+git add .
+git commit -m "อธิบายสั้นๆ ว่าแก้อะไร"
+npm run build
+firebase deploy --only hosting
+
+ย้ายไปทำต่อบนเครื่องใหม่ (หลังดึงโค้ดมา)
+
+bash
+npm install
 npm install -g firebase-tools
 firebase login
-firebase init hosting
+npm run dev
+สิ่งที่ไม่ได้อยู่ในคำสั่ง แต่ต้องทำใน Firebase Console
+งาน	ที่ไหน
+แก้ Security Rules	Firestore Database → แท็บ Rules → กด Publish (Rules ไม่ได้ขึ้นไปพร้อม firebase deploy --only hosting)
+เพิ่มแอดมิน	Firestore → ตู้ admins → เพิ่มแฟ้มที่ Document ID เป็น UID ของผู้ใช้
+ดูผู้ใช้ทั้งหมด / UID	Authentication → Users
+ตรวจโควตาที่ใช้	หน้า Usage ของแต่ละบริการ
