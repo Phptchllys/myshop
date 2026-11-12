@@ -2,7 +2,7 @@ import './style.css'
 import { renderHeader } from './header.js'
 import { waitForUser } from './auth.js'
 import { getMyOrders } from './orders.js'
-import { formatPrice, escapeHtml } from './ui.js'
+import { formatPrice, formatDate, escapeHtml } from './ui.js'
 
 renderHeader()
 
@@ -14,11 +14,6 @@ const STATUS = {
   paid: 'ชำระเงินแล้ว',
   shipped: 'จัดส่งแล้ว',
   cancelled: 'ยกเลิก',
-}
-
-function formatDate(ts) {
-  if (!ts) return ''
-  return ts.toDate().toLocaleString('th-TH', { dateStyle: 'medium', timeStyle: 'short' })
 }
 
 function orderCard(o) {

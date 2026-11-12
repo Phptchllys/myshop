@@ -30,3 +30,8 @@ export function escapeHtml(value) {
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;')
 }
+
+export function formatDate(ts) {
+  if (!ts) return ''
+  return ts.toDate().toLocaleString('th-TH', { dateStyle: 'medium', timeStyle: 'short' })
+}
