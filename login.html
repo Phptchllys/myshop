@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เข้าสู่ระบบ | MYSHOP</title>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="auth-page">
+    <h2 class="section-title" id="auth-title">เข้าสู่ระบบ</h2>
+
+    <form id="auth-form" class="form" novalidate>
+      <label id="name-field" hidden>ชื่อ
+        <input name="name" type="text" maxlength="100" autocomplete="name" />
+      </label>
+      <label>อีเมล
+        <input name="email" type="email" autocomplete="email" />
+      </label>
+      <label>รหัสผ่าน
+        <input name="password" type="password" autocomplete="current-password" />
+      </label>
+      <p id="auth-error" class="form-error" role="alert"></p>
+      <button class="btn" type="submit" id="auth-submit">เข้าสู่ระบบ</button>
+    </form>
+
+    <p class="switch">
+      <span id="switch-text">ยังไม่มีบัญชี?</span>
+      <button type="button" class="link-btn" id="switch-btn">สมัครสมาชิก</button>
+    </p>
+  </main>
+
+  <script type="module" src="/src/loginPage.js"></script>
+</body>
+</html>

@@ -70,7 +70,7 @@ function render() {
     <div class="cart-summary">
       <p>ค่าจัดส่ง: ฟรี</p>
       <p class="total">รวมทั้งหมด: ${formatPrice(total)}</p>
-      <button class="btn" id="checkout-btn">ดำเนินการสั่งซื้อ</button>
+      <a class="btn-link" href="/checkout.html">ดำเนินการสั่งซื้อ</a>
     </div>
   `
 }

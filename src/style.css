@@ -108,3 +108,45 @@ body { font-family: system-ui, sans-serif; color: #111; }
 @media (max-width: 700px) {
   .cart-row { grid-template-columns: 80px 1fr; }
 }
+
+[hidden] { display: none !important; }
+
+.topbar-right { display: flex; align-items: center; gap: 20px; }
+.account { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.account a { max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.auth-page, .checkout-page, .orders-page { max-width: 900px; margin: 0 auto; padding: 0 24px 48px; }
+.auth-page { max-width: 420px; }
+.auth-page .section-title,
+.checkout-page .section-title,
+.orders-page .section-title { padding-left: 0; }
+
+.form { display: flex; flex-direction: column; gap: 16px; }
+.form label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: #444; }
+.form input, .form textarea {
+  padding: 10px 12px; border: 1px solid #ccc; font: inherit; font-size: 15px;
+}
+.form-error { color: #c0392b; min-height: 1.2em; font-size: 14px; }
+.switch { margin-top: 16px; font-size: 14px; color: #555; }
+
+.checkout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.order-summary { border: 1px solid #eee; padding: 20px; }
+.order-summary h3 { margin-bottom: 12px; }
+.sum-row { display: flex; justify-content: space-between; gap: 16px; padding: 6px 0; font-size: 14px; }
+.sum-row.total { border-top: 1px solid #eee; margin-top: 8px; padding-top: 12px; font-weight: 700; font-size: 16px; }
+
+.banner { background: #eef7ee; border: 1px solid #b6dbb6; padding: 16px; margin-bottom: 24px; line-height: 1.6; }
+.order-card { border: 1px solid #eee; padding: 20px; margin-bottom: 16px; }
+.order-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.order-date { color: #888; font-size: 13px; margin-bottom: 12px; }
+.order-ship { margin-top: 12px; padding-top: 12px; border-top: 1px dashed #ddd; font-size: 13px; color: #666; line-height: 1.6; }
+.status { font-size: 12px; padding: 3px 10px; background: #eee; }
+.status-pending { background: #fff3cd; }
+.status-paid { background: #d4edda; }
+.status-shipped { background: #d1ecf1; }
+.status-cancelled { background: #f8d7da; }
+
+@media (max-width: 700px) {
+  .checkout-grid { grid-template-columns: 1fr; }
+  .topbar { flex-wrap: wrap; gap: 8px; }
+}
