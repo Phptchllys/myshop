@@ -1,2 +1,6 @@
 npm run build #test
 firebase deploy --only hosting #update
+
+npm install -g firebase-tools
+firebase login
+firebase init hosting
