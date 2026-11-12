@@ -1,9 +1,31 @@
 import { cartCount } from './cart.js'
 import { onUser, logout } from './auth.js'
+import { reducedMotion } from './motion.js'
+
+const ANNOUNCE = ['ส่งฟรี! ไม่มีขั้นต่ำ', 'สินค้าใหม่ทุกสัปดาห์', 'สั่งแล้วโอนแจ้งสลิปได้เลย']
+
+function marqueeHtml() {
+  const group = ANNOUNCE.map((t) => `<span>${t}</span>`).join('')
+  const half = group.repeat(4)
+  return `<div class="marquee"><div class="marquee-track">${half}${half}</div></div>`
+}
+
+let lastCount = null
 
 function updateCartCount() {
   const span = document.querySelector('#cart-count')
-  if (span) span.textContent = cartCount()
+  if (!span) return
+
+  const count = cartCount()
+  span.textContent = count
+
+  if (lastCount !== null && count > lastCount && !reducedMotion()) {
+    span.animate(
+      [{ transform: 'scale(1)' }, { transform: 'scale(1.6)' }, { transform: 'scale(1)' }],
+      { duration: 350, easing: 'ease-out' },
+    )
+  }
+  lastCount = count
 }
 
 function renderAccount(user) {
@@ -40,7 +62,7 @@ export function renderHeader() {
   if (!el) return
 
   el.innerHTML = `
-    <div class="announce">ส่งฟรี! ไม่มีขั้นต่ำ</div>
+    ${marqueeHtml()}
     <header class="topbar">
       <a href="/" class="logo">MYSHOP</a>
       <nav>

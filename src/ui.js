@@ -2,13 +2,14 @@ export function formatPrice(n) {
   return n.toLocaleString('th-TH') + ' ฿'
 }
 
-export function productCard(p) {
+export function productCard(p, index = 0) {
   const colorText = p.colors && p.colors.length > 1
     ? `<p class="colors">Available in ${p.colors.length} colors</p>`
     : ''
 
+    
   return `
-    <a class="card-link" href="/product.html?id=${p.id}">
+    <a class="card-link" href="/product.html?id=${p.id}" style="--i:${index}">
       <article class="card">
         <div class="card-img">
           <img src="${p.image}" alt="${p.name}" />
@@ -34,4 +35,15 @@ export function escapeHtml(value) {
 export function formatDate(ts) {
   if (!ts) return ''
   return ts.toDate().toLocaleString('th-TH', { dateStyle: 'medium', timeStyle: 'short' })
+  
+}
+
+export function skeletonCards(n = 8) {
+  return Array.from({ length: n }, () => `
+    <div class="sk-card" aria-hidden="true">
+      <div class="skeleton sk-img"></div>
+      <div class="skeleton sk-line"></div>
+      <div class="skeleton sk-line short"></div>
+    </div>
+  `).join('')
 }

@@ -3,6 +3,7 @@ import { renderHeader } from './header.js'
 import { waitForUser } from './auth.js'
 import { getMyOrders } from './orders.js'
 import { formatPrice, formatDate, escapeHtml } from './ui.js'
+import { confetti } from './confetti.js'
 
 renderHeader()
 
@@ -39,7 +40,10 @@ function orderCard(o) {
 }
 
 function banner() {
-  if (!newId) return ''
+      if (newId) {
+      confetti()
+      history.replaceState(null, '', window.location.pathname)
+    }
   return `
     <div class="banner">
       <strong>สั่งซื้อสำเร็จ!</strong> หมายเลขคำสั่งซื้อ #${escapeHtml(newId.slice(0, 8).toUpperCase())}<br>

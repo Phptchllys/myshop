@@ -3,6 +3,7 @@ import { getProduct } from './products.js'
 import { formatPrice } from './ui.js'
 import { renderHeader } from './header.js'
 import { addToCart } from './cart.js'
+import { showToast } from './toast.js'
 
 renderHeader()
 
@@ -69,9 +70,10 @@ async function loadProduct() {
     selectColor(selectedColor)
 
     addBtn.addEventListener('click', () => {
-      addToCart(p.id, selectedColor)
-      msg.innerHTML = 'เพิ่มลงตะกร้าแล้ว ✓ <a href="/cart.html">ดูตะกร้า</a>'
-    })
+  addToCart(p.id, selectedColor)
+  showToast(`เพิ่ม "${p.name}"${selectedColor ? ` (${selectedColor})` : ''} ลงตะกร้าแล้ว`)
+  msg.innerHTML = 'เพิ่มลงตะกร้าแล้ว ✓ <a href="/cart.html">ดูตะกร้า</a>'
+})
   } catch (error) {
     console.error('โหลดสินค้าไม่สำเร็จ:', error)
     root.innerHTML = '<p>โหลดสินค้าไม่สำเร็จ ลองใหม่อีกครั้ง</p>'
